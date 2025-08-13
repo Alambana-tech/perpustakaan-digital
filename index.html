@@ -20,25 +20,164 @@
             line-height: 1.6;
         }
 
-        /* Header */
+        /* Enhanced Header */
         .header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 50%, #1a1a1a 100%);
             color: white;
-            padding: 1.5rem;
+            padding: 3rem 1.5rem;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background elements */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(64, 224, 208, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 105, 180, 0.1) 0%, transparent 50%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Header content */
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .library-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
         }
 
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 3rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF8C00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .header-description {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            line-height: 1.6;
+        }
+
+        /* Stats section */
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.2s; }
+        .stat-item:nth-child(2) { animation-delay: 0.4s; }
+        .stat-item:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFD700;
             margin-bottom: 0.3rem;
         }
 
-        .header p {
-            font-size: 1rem;
-            font-weight: 300;
-            opacity: 0.9;
+        .stat-label {
+            font-size: 0.9rem;
+            color: #ccc;
+            font-weight: 400;
+        }
+
+        /* Floating elements */
+        .floating-books {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-book {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.1;
+            animation: floatBook 15s linear infinite;
+        }
+
+        .floating-book:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-book:nth-child(2) { top: 60%; left: 85%; animation-delay: 5s; }
+        .floating-book:nth-child(3) { top: 40%; left: 5%; animation-delay: 10s; }
+        .floating-book:nth-child(4) { top: 80%; left: 90%; animation-delay: 7s; }
+
+        @keyframes floatBook {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(0px) rotate(180deg); }
+            75% { transform: translateY(-15px) rotate(270deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
         }
 
         /* Container Full Width */
@@ -203,11 +342,27 @@
             .books-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
+            
+            .header-stats {
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 2rem 1rem;
+            }
+            
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
+            }
+            
+            .header-stats {
+                gap: 1.5rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
             }
             
             .books-grid {
@@ -221,6 +376,23 @@
         }
 
         @media (max-width: 480px) {
+            .header {
+                padding: 1.5rem 0.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .library-icon {
+                font-size: 2rem;
+            }
+            
+            .header-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
             .books-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 0.8rem;
@@ -265,8 +437,37 @@
 </head>
 <body>
     <header class="header">
-        <h1> Alambana OpenBook Library</h1>
-        <p>Koleksi Buku mindset</p>
+        <div class="floating-books">
+            <div class="floating-book">📚</div>
+            <div class="floating-book">📖</div>
+            <div class="floating-book">📓</div>
+            <div class="floating-book">📕</div>
+        </div>
+        
+        <div class="header-content">
+            <div class="library-icon"></div>
+            <h1>Alambana OpenBook Library</h1>
+            <p class="header-subtitle">Koleksi Buku Digital Mindset & Pengembangan Diri</p>
+            <p class="header-description">
+                "Mau kaya ke dukun dukunnya aja miskin"
+                ~Kalimasada
+            </p>
+            
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="bookCount">12</span>
+                    <span class="stat-label">Buku Tersedia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Kategori</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Gratis</span>
+                </div>
+            </div>
+        </div>
     </header>
 
     <div class="container">
@@ -429,18 +630,6 @@
                 pdfUrl: "https://drive.google.com/file/d/1example_mindset/view",
                 coverColor: "linear-gradient(135deg, #4B0082, #8B008B)",
                 coverText: "MINDSET"
-            },
-            {
-                id: 12,
-                title: "Mindset: The New Psychology of Success",
-                description: "Carol Dweck menjelaskan perbedaan antara fixed mindset dan growth mindset. Bagaimana cara berpikir dapat menentukan kesuksesan dalam hidup, karier, dan hubungan.",
-                currentPrice: "",
-                originalPrice: "",
-                discount: "89%",
-                category: "PSYCHOLOGY",
-                pdfUrl: "https://drive.google.com/file/d/1example_mindset/view",
-                coverColor: "linear-gradient(135deg, #4B0082, #8B008B)",
-                coverText: "MINDSET"
             }
         ];
 
@@ -572,6 +761,12 @@ startxref
             const booksGrid = document.getElementById('booksGrid');
             const booksHTML = booksData.map(book => createBookCard(book)).join('');
             booksGrid.innerHTML = booksHTML;
+            
+            // Update book count in header
+            const bookCountElement = document.getElementById('bookCount');
+            if (bookCountElement) {
+                bookCountElement.textContent = booksData.length;
+            }
         }
 
         // Fungsi untuk membuka buku (direct redirect)
