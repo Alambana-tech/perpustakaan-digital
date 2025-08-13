@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alambana Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Container Full Width */
+        .container {
+            width: 100%;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+        }
+
+        /* Grid Layout - Full Width */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: none;
+        }
+
+        /* Book Card Styles - Mirip Marketplace */
+        .book-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: white;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .book-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-card:hover .book-image-overlay {
+            opacity: 1;
+        }
+
+        .book-info {
+            padding: 1rem;
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            height: 2.6em;
+            overflow: hidden;
+        }
+
+        .book-description {
+            font-size: 0.85rem;
+            color: #6c757d;
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+            height: 2.8em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .book-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .price-current {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .price-original {
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        .download-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-card:hover .download-badge {
+            opacity: 1;
+        }
+
+        .download-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .download-message.show {
+            transform: translateX(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .book-image {
+                height: 150px;
+            }
+            
+            .container {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #2c2c2c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer Made with */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+            background: white;
+            border-top: 1px solid #e9ecef;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1> Alambana OpenBook Library</h1>
+        <p>Koleksi Buku mindset</p>
+    </header>
+
+    <div class="container">
+        <div class="books-grid" id="booksGrid">
+            <!-- Books akan di-generate oleh JavaScript -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>made with by Alambana Library</p>
+    </footer>
+
+    <script>
+        // Data buku dengan informasi lengkap
+        const booksData = [
+            {
+                id: 1,
+                title: "The Psychology of Money",
+                description: "The Psychology of Money karya Morgan Housel adalah buku yang membahas bagaimana perilaku, emosi, dan pola pikir kita memengaruhi cara mengelola uang. Dengan 19 kisah pendek, Housel menjelaskan bahwa kesuksesan finansial lebih ditentukan oleh sikap dan kebiasaan daripada pengetahuan teknis semata. Buku ini mengajarkan pentingnya kesabaran, pengendalian diri, dan perspektif jangka panjang dalam membangun kekayaan, sambil menghindari jebakan keserakahan dan keputusan impulsif.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "75%",
+                category: "FINANCE",
+                pdfUrl: "https://drive.google.com/file/d/1kNSj-2HLCZu-l1C7IKF9OHyTlGFniDCR/view?usp=sharing",
+                imageUrl: "./images/psikology of money.jpg",
+                coverColor: "linear-gradient(135deg, #1a1a1a, #333333)",
+                coverText: "The Psychology of Money"
+            },
+            {
+                id: 2,
+                title: "The Millionaire Fastlane",
+                description: "Buku yang mengungkap rahasia membangun kekayaan dengan cepat melalui sistem dan mindset yang tepat. Penulis MJ DeMarco membagikan strategi praktis untuk keluar dari jebatan kerja 9-5 dan mencapai kebebasan finansial.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "85%",
+                category: "BUSINESS",
+                pdfUrl: "https://drive.google.com/file/d/1R6xPdhT-jehWShUQwgibye7o5jxMlKvm/view?usp=sharing",
+                imageUrl: "./images/the millionaire faslane.webp",
+                coverColor: "linear-gradient(135deg, #8B0000, #DC143C)",
+                coverText: "The Millionaire Fastlane"
+            },
+            {
+                id: 3,
+                title: "Rich Dad Poor Dad",
+                description: "Rich Dad Poor Dad karya Robert T. Kiyosaki adalah buku keuangan pribadi yang menceritakan pelajaran hidup penulis dari dua sosok ayah: ayah kandung (Poor Dad) dan ayah sahabatnya (Rich Dad). Buku ini mengajarkan perbedaan cara pandang orang kaya dan orang miskin terhadap uang, investasi, dan aset. Pesan utamanya adalah pentingnya membangun aset yang menghasilkan pemasukan pasif, meningkatkan literasi keuangan, dan menghindari jebakan bekerja hanya demi gaji.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "80%",
+                category: "FINANCE",
+                pdfUrl: "https://drive.google.com/file/d/1fXDEDN7XCRQOw4zrzm5373wmqA22XkVA/view?usp=sharing",
+                imageUrl: "./images/rich dad poor dad.webp",
+                coverColor: "linear-gradient(135deg, #1a1a1a, #FFD700)",
+                coverText: "Rich Dad Poor Dad"
+            },
+            {
+                id: 4,
+                title: "Think and Grow Rich",
+                description: "Masterpiece Napoleon Hill tentang rahasia kesuksesan dan kekayaan. 13 prinsip untuk mencapai tujuan finansial dan personal yang telah terbukti selama puluhan tahun.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "90%",
+                category: "SELF-HELP",
+                pdfUrl: "https://drive.google.com/file/d/1example_think_grow_rich/view",
+                coverColor: "linear-gradient(135deg, #2F4F4F, #696969)",
+                coverText: "THINK AND\nGROW RICH"
+            },
+            {
+                id: 5,
+                title: "The 7 Habits of Highly Effective People",
+                description: "Stephen Covey menghadirkan 7 kebiasaan yang dapat mengubah hidup Anda. Prinsip-prinsip yang telah membantu jutaan orang mencapai kesuksesan dalam kehidupan personal dan profesional.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "88%",
+                category: "SELF-HELP",
+                pdfUrl: "https://drive.google.com/file/d/1example_7_habits/view",
+                coverColor: "linear-gradient(135deg, #000080, #4169E1)",
+                coverText: "7 HABITS OF\nEFFECTIVE PEOPLE"
+            },
+            {
+                id: 6,
+                title: "Atomic Habits",
+                description: "James Clear mengungkap rahasia membangun kebiasaan baik dan menghilangkan kebiasaan buruk. Metode praktis untuk perubahan kecil yang menghasilkan dampak luar biasa.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "85%",
+                category: "SELF-HELP",
+                pdfUrl: "https://drive.google.com/file/d/1example_atomic_habits/view",
+                coverColor: "linear-gradient(135deg, #00A651, #32CD32)",
+                coverText: "ATOMIC\nHABITS"
+            },
+            {
+                id: 7,
+                title: "How to Win Friends and Influence People",
+                description: "Dale Carnegie's timeless guide to improving relationships and communication skills. Essential principles for personal and professional success through better human relations.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "82%",
+                category: "COMMUNICATION",
+                pdfUrl: "https://drive.google.com/file/d/1example_win_friends/view",
+                coverColor: "linear-gradient(135deg, #87CEEB, #98FB98)",
+                coverText: "HOW TO WIN\nFRIENDS"
+            },
+            {
+                id: 8,
+                title: "The Lean Startup",
+                description: "Eric Ries memperkenalkan metodologi lean untuk membangun startup yang sukses. Konsep MVP, validated learning, dan pivot yang telah merevolusi dunia startup.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "87%",
+                category: "BUSINESS",
+                pdfUrl: "https://drive.google.com/file/d/1example_lean_startup/view",
+                coverColor: "linear-gradient(135deg, #228B22, #90EE90)",
+                coverText: "THE LEAN\nSTARTUP"
+            },
+            {
+                id: 9,
+                title: "The 4-Hour Workweek",
+                description: "Tim Ferriss mengajarkan cara bekerja lebih efisien dan mencapai kebebasan waktu. Strategi otomatisasi, delegasi, dan lifestyle design untuk hidup yang lebih bermakna.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "83%",
+                category: "PRODUCTIVITY",
+                pdfUrl: "https://drive.google.com/file/d/1example_4hour_workweek/view",
+                coverColor: "linear-gradient(135deg, #FF1493, #8A2BE2)",
+                coverText: "4-HOUR\nWORKWEEK"
+            },
+            {
+                id: 10,
+                title: "Good to Great",
+                description: "Jim Collins menganalisis apa yang membuat perusahaan berubah dari baik menjadi luar biasa. Research mendalam tentang faktor-faktor yang menentukan kesuksesan jangka panjang.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "86%",
+                category: "BUSINESS",
+                pdfUrl: "https://drive.google.com/file/d/1example_good_to_great/view",
+                coverColor: "linear-gradient(135deg, #FF8C00, #FF4500)",
+                coverText: "GOOD TO\nGREAT"
+            },
+            {
+                id: 11,
+                title: "The Power of Now",
+                description: "Eckhart Tolle mengajarkan pentingnya hidup di masa sekarang. Panduan spiritual untuk mencapai kedamaian batin dan kebebasan dari kecemasan masa lalu dan masa depan.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "84%",
+                category: "SPIRITUAL",
+                pdfUrl: "https://drive.google.com/file/d/1example_power_of_now/view",
+                coverColor: "linear-gradient(135deg, #8B4513, #CD853F)",
+                coverText: "THE POWER\nOF NOW"
+            },
+            {
+                id: 12,
+                title: "Mindset: The New Psychology of Success",
+                description: "Carol Dweck menjelaskan perbedaan antara fixed mindset dan growth mindset. Bagaimana cara berpikir dapat menentukan kesuksesan dalam hidup, karier, dan hubungan.",
+                currentPrice: "",
+                originalPrice: "",
+                discount: "89%",
+                category: "PSYCHOLOGY",
+                pdfUrl: "https://drive.google.com/file/d/1example_mindset/view",
+                coverColor: "linear-gradient(135deg, #4B0082, #8B008B)",
+                coverText: "MINDSET"
+            }
+        ];
+
+        // Fungsi untuk generate PDF content
+        function generatePDFContent(book) {
+            return `%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+
+4 0 obj
+<< /Length 200 >>
+stream
+BT
+/F1 24 Tf
+100 700 Td
+(${book.title}) Tj
+0 -50 Td
+/F1 12 Tf
+(${book.description.substring(0, 100)}...) Tj
+0 -30 Td
+(Kategori: ${book.category}) Tj
+0 -30 Td
+(Download dari BookHub Library) Tj
+ET
+endstream
+endobj
+
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000068 00000 n 
+0000000125 00000 n 
+0000000259 00000 n 
+0000000509 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+578
+%%EOF`;
+        }
+
+        // Fungsi untuk download PDF
+        function downloadPDF(book) {
+            const pdfContent = generatePDFContent(book);
+            const blob = new Blob([pdfContent], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${book.title.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Tampilkan pesan download
+            showDownloadMessage(book.title);
+        }
+
+        // Fungsi untuk menampilkan pesan download
+        function showDownloadMessage(bookTitle) {
+            const message = document.createElement('div');
+            message.className = 'download-message';
+            message.innerHTML = `
+                <strong>✅ Download Berhasil!</strong><br>
+                ${bookTitle} telah diunduh
+            `;
+            
+            document.body.appendChild(message);
+            
+            // Animasi muncul
+            setTimeout(() => {
+                message.classList.add('show');
+            }, 100);
+            
+            // Hilang setelah 3 detik
+            setTimeout(() => {
+                message.classList.remove('show');
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        document.body.removeChild(message);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Fungsi untuk membuat card buku
+        function createBookCard(book) {
+            return `
+                <div class="book-card" onclick="openBook('${book.pdfUrl}', '${book.title}')">
+                    <div class="book-image" style="background: ${book.coverColor}">
+                        ${book.imageUrl ? `<img src="${book.imageUrl}" alt="${book.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+                        <div class="book-image-overlay" style="display: ${book.imageUrl ? 'flex' : 'flex'};">
+                            <span style="color: white; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); text-align: center; line-height: 1.2;">
+                                ${book.coverText}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-description">${book.description}</p>
+                        <div class="book-price">
+                            <div>
+                                <span class="price-current">${book.currentPrice}</span>
+                                ${book.originalPrice ? `<span class="price-original">${book.originalPrice}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fungsi untuk render semua buku
+        function renderBooks() {
+            const booksGrid = document.getElementById('booksGrid');
+            const booksHTML = booksData.map(book => createBookCard(book)).join('');
+            booksGrid.innerHTML = booksHTML;
+        }
+
+        // Fungsi untuk membuka buku (direct redirect)
+        function openBook(pdfUrl, bookTitle) {
+            // Langsung buka link di tab baru
+            if (pdfUrl) {
+                const newWindow = window.open(pdfUrl, '_blank');
+                
+                // Fallback jika gagal membuka di tab baru
+                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                    // Redirect di window yang sama
+                    window.location.href = pdfUrl;
+                }
+            } else {
+                // Jika tidak ada URL, tampilkan pesan
+                alert(`Maaf, link untuk "${bookTitle}" belum tersedia.`);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderBooks();
+        });
+    </script>
+</body>
+</html>
