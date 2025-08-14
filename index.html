@@ -319,6 +319,155 @@
             opacity: 1;
         }
 
+        /* Language Selection Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .language-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-overlay.show .language-modal {
+            transform: scale(1);
+        }
+
+        .language-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FF8C00, #FFD700);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #6c757d;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #e74c3c;
+        }
+
+        .language-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .language-option:hover {
+            border-color: #FFD700;
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .language-flag {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .language-info {
+            flex: 1;
+        }
+
+        .language-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.2rem;
+        }
+
+        .language-desc {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .arrow-icon {
+            font-size: 1.2rem;
+            color: #6c757d;
+            transition: transform 0.3s ease;
+        }
+
+        .language-option:hover .arrow-icon {
+            transform: translateX(5px);
+            color: #FFD700;
+        }
+
         .download-message {
             position: fixed;
             top: 20px;
@@ -373,6 +522,18 @@
             .container {
                 padding: 1rem;
             }
+
+            .language-modal {
+                padding: 1.5rem;
+            }
+
+            .language-options {
+                gap: 0.8rem;
+            }
+
+            .language-option {
+                padding: 0.8rem 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -404,6 +565,11 @@
             
             .container {
                 padding: 0.5rem;
+            }
+
+            .language-modal {
+                padding: 1rem;
+                width: 95%;
             }
         }
 
@@ -480,6 +646,35 @@
         <p>made by Alambana Library</p>
     </footer>
 
+    <!-- Language Selection Modal -->
+    <div class="modal-overlay" id="languageModal">
+        <div class="language-modal">
+            <button class="close-modal" onclick="closeLanguageModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Pilih Bahasa</h2>
+                <p class="modal-subtitle">Choose your preferred language</p>
+            </div>
+            <div class="language-options">
+                <a href="#" class="language-option" id="indonesianOption">
+                    <span class="language-flag">🇮🇩</span>
+                    <div class="language-info">
+                        <div class="language-name">Bahasa Indonesia</div>
+                        <div class="language-desc">Versi terjemahan Bahasa Indonesia</div>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+                <a href="#" class="language-option" id="englishOption">
+                    <span class="language-flag">🇺🇸</span>
+                    <div class="language-info">
+                        <div class="language-name">English</div>
+                        <div class="language-desc">Original English version</div>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Data buku dengan informasi lengkap
         const booksData = [
@@ -491,7 +686,10 @@
                 originalPrice: "",
                 discount: "75%",
                 category: "FINANCE",
-                pdfUrl: "https://drive.google.com/file/d/1kNSj-2HLCZu-l1C7IKF9OHyTlGFniDCR/view?usp=sharing",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1gXBHw1Xm3UDaHrbD05D6m6l201X-4NmU/view?usp=sharing",
+                    en: "https://drive.google.com/file/d/1kNSj-2HLCZu-l1C7IKF9OHyTlGFniDCR/view?usp=sharing"
+                },
                 imageUrl: "https://penerbitbaca.com/wp-content/uploads/2023/03/The-Psychology-of-Money.jpg",
                 coverColor: "linear-gradient(135deg, #1a1a1a, #333333)",
                 coverText: "The Psychology of Money"
@@ -504,7 +702,10 @@
                 originalPrice: "",
                 discount: "85%",
                 category: "BUSINESS",
-                pdfUrl: "https://drive.google.com/file/d/1R6xPdhT-jehWShUQwgibye7o5jxMlKvm/view?usp=sharing",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/16UJmT3ldx42tL61Xnp0d_b7AYsRP9HGu/view?usp=sharing",
+                    en: "https://drive.google.com/file/d/1R6xPdhT-jehWShUQwgibye7o5jxMlKvm/view?usp=sharing"
+                },
                 imageUrl: "https://www.bookmarked.id/cdn/shop/products/TheMillionaireFastlaneNEW_860x.jpg?v=1612547547",
                 coverColor: "linear-gradient(135deg, #8B0000, #DC143C)",
                 coverText: "The Millionaire Fastlane"
@@ -517,7 +718,10 @@
                 originalPrice: "",
                 discount: "80%",
                 category: "FINANCE",
-                pdfUrl: "https://drive.google.com/file/d/1fXDEDN7XCRQOw4zrzm5373wmqA22XkVA/view?usp=sharing",
+                pdfUrl: {
+                    id: "",
+                    en: "https://drive.google.com/file/d/1fXDEDN7XCRQOw4zrzm5373wmqA22XkVA/view?usp=sharing"
+                },
                 imageUrl: "https://www.bookishadda.com/cdn/shop/files/240_1f619642-5185-4dc5-8489-4c4bcb27c876.png?v=1701691051&width=1920",
                 coverColor: "linear-gradient(135deg, #1a1a1a, #FFD700)",
                 coverText: "Rich Dad Poor Dad"
@@ -531,21 +735,28 @@
                 originalPrice: "",
                 discount: "90%",
                 category: "SELF-HELP",
-                pdfUrl: "https://drive.google.com/file/d/1ZsPSqkCEy6xmP_1bZeFrqtRinNCH_X02/view?usp=sharing",
+                pdfUrl: {
+                    id: "",
+                    en: "https://drive.google.com/file/d/1ZsPSqkCEy6xmP_1bZeFrqtRinNCH_X02/view?usp=sharing"
+                },
                 coverColor: "linear-gradient(135deg, #2F4F4F, #696969)",
                 coverText: "THINK AND\nGROW RICH"
             },
             {
                 id: 5,
-                title: "The 7 Habits of Highly Effective People",
+                title: "Madilog-Tan Malaka",
                 description: "Stephen Covey menghadirkan 7 kebiasaan yang dapat mengubah hidup Anda. Prinsip-prinsip yang telah membantu jutaan orang mencapai kesuksesan dalam kehidupan personal dan profesional.",
+                imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCnCRd1jbqPdFY7xTb6vPVt8UCk8q3dlvm_w&s",
                 currentPrice: "",
                 originalPrice: "",
                 discount: "88%",
                 category: "SELF-HELP",
-                pdfUrl: "https://drive.google.com/file/d/1example_7_habits/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1ohzMD2pjZQ3FJfltajTQiWKjBSxtOwiN/view?usp=sharing",
+                    en: "https://drive.google.com/file/d/1example_7_habits_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #000080, #4169E1)",
-                coverText: "7 HABITS OF\nEFFECTIVE PEOPLE"
+                coverText: "Madilog-Tan Malaka"
             },
             {
                 id: 6,
@@ -555,7 +766,10 @@
                 originalPrice: "",
                 discount: "85%",
                 category: "SELF-HELP",
-                pdfUrl: "https://drive.google.com/file/d/1example_atomic_habits/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_atomic_habits_id/view",
+                    en: "https://drive.google.com/file/d/1example_atomic_habits_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #00A651, #32CD32)",
                 coverText: "ATOMIC\nHABITS"
             },
@@ -567,7 +781,10 @@
                 originalPrice: "",
                 discount: "82%",
                 category: "COMMUNICATION",
-                pdfUrl: "https://drive.google.com/file/d/1example_win_friends/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_win_friends_id/view",
+                    en: "https://drive.google.com/file/d/1example_win_friends_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #87CEEB, #98FB98)",
                 coverText: "HOW TO WIN\nFRIENDS"
             },
@@ -579,7 +796,10 @@
                 originalPrice: "",
                 discount: "87%",
                 category: "BUSINESS",
-                pdfUrl: "https://drive.google.com/file/d/1example_lean_startup/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_lean_startup_id/view",
+                    en: "https://drive.google.com/file/d/1example_lean_startup_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #228B22, #90EE90)",
                 coverText: "THE LEAN\nSTARTUP"
             },
@@ -591,7 +811,10 @@
                 originalPrice: "",
                 discount: "83%",
                 category: "PRODUCTIVITY",
-                pdfUrl: "https://drive.google.com/file/d/1example_4hour_workweek/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_4hour_workweek_id/view",
+                    en: "https://drive.google.com/file/d/1example_4hour_workweek_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #FF1493, #8A2BE2)",
                 coverText: "4-HOUR\nWORKWEEK"
             },
@@ -603,7 +826,10 @@
                 originalPrice: "",
                 discount: "86%",
                 category: "BUSINESS",
-                pdfUrl: "https://drive.google.com/file/d/1example_good_to_great/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_good_to_great_id/view",
+                    en: "https://drive.google.com/file/d/1example_good_to_great_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #FF8C00, #FF4500)",
                 coverText: "GOOD TO\nGREAT"
             },
@@ -615,7 +841,10 @@
                 originalPrice: "",
                 discount: "84%",
                 category: "SPIRITUAL",
-                pdfUrl: "https://drive.google.com/file/d/1example_power_of_now/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_power_of_now_id/view",
+                    en: "https://drive.google.com/file/d/1example_power_of_now_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #8B4513, #CD853F)",
                 coverText: "THE POWER\nOF NOW"
             },
@@ -627,11 +856,17 @@
                 originalPrice: "",
                 discount: "89%",
                 category: "PSYCHOLOGY",
-                pdfUrl: "https://drive.google.com/file/d/1example_mindset/view",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1example_mindset_id/view",
+                    en: "https://drive.google.com/file/d/1example_mindset_en/view"
+                },
                 coverColor: "linear-gradient(135deg, #4B0082, #8B008B)",
                 coverText: "MINDSET"
             }
         ];
+
+        // Variable untuk menyimpan buku yang dipilih
+        let selectedBook = null;
 
         // Fungsi untuk generate PDF content
         function generatePDFContent(book) {
@@ -661,7 +896,7 @@ BT
 0 -30 Td
 (Kategori: ${book.category}) Tj
 0 -30 Td
-(Download dari BookHub Library) Tj
+(Download dari Alambana Library) Tj
 ET
 endstream
 endobj
@@ -733,7 +968,7 @@ startxref
         // Fungsi untuk membuat card buku
         function createBookCard(book) {
             return `
-                <div class="book-card" onclick="openBook('${book.pdfUrl}', '${book.title}')">
+                <div class="book-card" onclick="openLanguageModal(${book.id})">
                     <div class="book-image" style="background: ${book.coverColor}">
                         ${book.imageUrl ? `<img src="${book.imageUrl}" alt="${book.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
                         <div class="book-image-overlay" style="display: ${book.imageUrl ? 'flex' : 'flex'};">
@@ -769,10 +1004,60 @@ startxref
             }
         }
 
-        // Fungsi untuk membuka buku (direct redirect)
-        function openBook(pdfUrl, bookTitle) {
+        // Fungsi untuk membuka modal bahasa
+        function openLanguageModal(bookId) {
+            selectedBook = booksData.find(book => book.id === bookId);
+            if (selectedBook) {
+                const modal = document.getElementById('languageModal');
+                modal.classList.add('show');
+                
+                // Update modal title dengan nama buku
+                const modalTitle = document.querySelector('.modal-title');
+                modalTitle.textContent = `Pilih Bahasa - ${selectedBook.title}`;
+                
+                // Set up click handlers untuk opsi bahasa
+                setupLanguageOptions();
+            }
+        }
+
+        // Fungsi untuk menutup modal bahasa
+        function closeLanguageModal() {
+            const modal = document.getElementById('languageModal');
+            modal.classList.remove('show');
+            selectedBook = null;
+        }
+
+        // Fungsi untuk setup opsi bahasa
+        function setupLanguageOptions() {
+            const indonesianOption = document.getElementById('indonesianOption');
+            const englishOption = document.getElementById('englishOption');
+            
+            // Remove existing event listeners
+            indonesianOption.replaceWith(indonesianOption.cloneNode(true));
+            englishOption.replaceWith(englishOption.cloneNode(true));
+            
+            // Get new references
+            const newIndonesianOption = document.getElementById('indonesianOption');
+            const newEnglishOption = document.getElementById('englishOption');
+            
+            // Add new event listeners
+            newIndonesianOption.addEventListener('click', (e) => {
+                e.preventDefault();
+                openBook(selectedBook.pdfUrl.id, selectedBook.title, 'Indonesia');
+                closeLanguageModal();
+            });
+            
+            newEnglishOption.addEventListener('click', (e) => {
+                e.preventDefault();
+                openBook(selectedBook.pdfUrl.en, selectedBook.title, 'English');
+                closeLanguageModal();
+            });
+        }
+
+        // Fungsi untuk membuka buku dengan bahasa yang dipilih
+        function openBook(pdfUrl, bookTitle, language) {
             // Langsung buka link di tab baru
-            if (pdfUrl) {
+            if (pdfUrl && !pdfUrl.includes('example')) {
                 const newWindow = window.open(pdfUrl, '_blank');
                 
                 // Fallback jika gagal membuka di tab baru
@@ -780,11 +1065,29 @@ startxref
                     // Redirect di window yang sama
                     window.location.href = pdfUrl;
                 }
+                
+                // Tampilkan pesan sukses
+                showDownloadMessage(`${bookTitle} (${language})`);
             } else {
-                // Jika tidak ada URL, tampilkan pesan
-                alert(`Maaf, link untuk "${bookTitle}" belum tersedia.`);
+                // Jika tidak ada URL atau masih example, tampilkan pesan
+                alert(`Maaf, versi ${language} untuk "${bookTitle}" belum tersedia.`);
             }
         }
+
+        // Event listener untuk menutup modal ketika klik di luar
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('languageModal');
+            if (e.target === modal) {
+                closeLanguageModal();
+            }
+        });
+
+        // Event listener untuk tombol ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLanguageModal();
+            }
+        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
