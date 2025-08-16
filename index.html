@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,6 +9,92 @@
     <title>OpenBook Library</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        
+
+.books-grid.filtering .book-card {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+        /* Add to existing styles */
+.search-container {
+    position: relative;
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+    width: 90%;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 1rem 2rem 1rem 3rem;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFD700;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#searchInput::placeholder {
+    color: rgba(255, 215, 0, 0.5);
+    font-style: italic;
+}
+
+#clearSearch {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 215, 0, 0.7);
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 5px;
+}
+
+#clearSearch.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-container::before {
+    content: "🔍";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 215, 0, 0.7);
+    font-size: 1rem;
+}
+
+.no-results {
+    text-align: center;
+    color: #FFD700;
+    font-size: 1.2rem;
+    grid-column: 1 / -1;
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
         /* Reset dan Base Styles */
         * {
             margin: 0;
@@ -1001,6 +1088,12 @@
                 </div>
             </div>
         </div>
+        <!-- Add inside the header-content div, after the header-description -->
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Cari judul buku..." 
+           aria-label="Search books by title">
+    <button id="clearSearch" aria-label="Clear search">✕</button>
+</div>
     </header>
 
     <div class="container">
@@ -1236,6 +1329,22 @@
                 },
                 coverColor: "linear-gradient(135deg, #1a1a1a, #333333)",
                 coverText: "MINDSET"
+            },
+            {
+                id: 13,
+                title: "The 7 Habits of Highly Effective People",
+                description: "Carol Dweck menjelaskan perbedaan antara fixed mindset dan growth mindset. Bagaimana cara berpikir dapat menentukan kesuksesan dalam hidup, karier, dan hubungan interpersonal.",
+                currentPrice: "GRATIS",
+                originalPrice: "Rp 160.000",
+                discount: "89%",
+                category: "PSYCHOLOGY",
+                imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa-VhVmPDuaRa3fnFNgL4JA8gE0ry03vTYng&s",
+                pdfUrl: {
+                    id: "https://drive.google.com/file/d/1SVk1yt4As0kAcMYdNE__nsTTu9Ri9K5s/view?usp=sharing",
+                    en: "https://drive.google.com/file/d/1RWSMD9szBB8l8w3gffnaxp9SLOtfhG5h/view?usp=sharing"
+                },
+                coverColor: "linear-gradient(135deg, #1a1a1a, #333333)",
+                coverText: "The 7 Habits of Highly Effective People"
             }
         ];
 
@@ -1787,6 +1896,62 @@ startxref
             document.body.style.opacity = '0';
             document.body.style.transform = 'translateY(-20px)';
         });
+        // Add inside the existing JavaScript
+
+// Search functionality
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearch');
+    
+    if (!searchInput || !clearBtn) return;
+
+    searchInput.addEventListener('input', function(e) {
+        const query = this.value.toLowerCase().trim();
+        clearBtn.classList.toggle('show', query.length > 0);
+        filterBooks(query);
+    });
+
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.classList.remove('show');
+        filterBooks('');
+        searchInput.focus();
+    });
+}
+
+function filterBooks(query) {
+    const booksContainer = document.getElementById('booksGrid');
+    const allBooks = document.querySelectorAll('.book-card');
+    let noResults = document.querySelector('.no-results');
+    let hasVisibleBooks = false;
+    
+    // Remove existing no results message
+    if (noResults) noResults.remove();
+
+    allBooks.forEach(book => {
+        const title = book.querySelector('.book-title').textContent.toLowerCase();
+        const isVisible = title.includes(query);
+        book.style.display = isVisible ? 'block' : 'none';
+        book.classList.toggle('hidden', !isVisible);
+        if (isVisible) hasVisibleBooks = true;
+    });
+
+    // Add animation when filtering
+    booksContainer.classList.add('filtering');
+    setTimeout(() => booksContainer.classList.remove('filtering'), 300);
+
+    // Add no results message
+    if (!hasVisibleBooks && query) {
+        noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = `Tidak ditemukan buku dengan judul "${query}"`;
+        booksContainer.appendChild(noResults);
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing initialization code
+    initSearch();
+});
 
     </script>
 </body>
