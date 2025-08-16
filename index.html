@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <link rel="icon" type="image/png" href="Buku_dan_Penerangan_Inovatif-removebg-preview.png">
+    <meta name="google-site-verification" content="C95cPqPR8IAz7zIOEMVS7OZ8xYFx5ql62ET1zfetqRk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenBook Library</title>
@@ -14,12 +15,21 @@
             box-sizing: border-box;
         }
 
+        /* Enhanced Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 2rem;
+        }
+
         body {
             font-family: 'Poppins', Arial, sans-serif;
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
             color: #e0e0e0;
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Enhanced Header */
@@ -33,6 +43,7 @@
             overflow: hidden;
             border-bottom: 2px solid transparent;
             border-image: linear-gradient(90deg, transparent, #FFD700, transparent) 1;
+            will-change: transform;
         }
 
         /* Animated background elements */
@@ -63,6 +74,7 @@
             z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
+            will-change: transform;
         }
 
         .library-icon {
@@ -159,14 +171,15 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 215, 0, 0.3);
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
 
         .stat-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 215, 0, 0.12);
-            border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+            transform: translateY(-8px) scale(1.05);
+            background: rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
         }
 
         .stat-item:nth-child(1) { animation-delay: 0.2s; }
@@ -220,6 +233,7 @@
             opacity: 0.15;
             animation: floatBook 20s linear infinite;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+            will-change: transform;
         }
 
         .floating-book:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
@@ -235,23 +249,36 @@
             100% { transform: translateY(0px) rotate(360deg) scale(1); opacity: 0.15; }
         }
 
-        /* Container Full Width */
+        /* Container Full Width with smooth transitions */
         .container {
             width: 100%;
             padding: 2rem 1.5rem;
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+            will-change: transform;
         }
 
-        /* Grid Layout - Full Width */
+        /* Grid Layout - Full Width with smooth animations */
         .books-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 2rem;
             width: 100%;
             max-width: none;
+            animation: slideInFromBottom 0.8s ease-out;
         }
 
-        /* Book Card Styles - Elegant Black */
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Book Card Styles - Enhanced smooth transitions */
         .book-card {
             background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
             border-radius: 20px;
@@ -259,12 +286,37 @@
                 0 10px 40px rgba(0, 0, 0, 0.6),
                 0 0 0 1px rgba(255, 215, 0, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
+            will-change: transform, box-shadow;
+            animation: fadeInCard 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
         }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Staggered animation for cards */
+        .book-card:nth-child(1) { animation-delay: 0.1s; }
+        .book-card:nth-child(2) { animation-delay: 0.2s; }
+        .book-card:nth-child(3) { animation-delay: 0.3s; }
+        .book-card:nth-child(4) { animation-delay: 0.4s; }
+        .book-card:nth-child(5) { animation-delay: 0.5s; }
+        .book-card:nth-child(6) { animation-delay: 0.6s; }
+        .book-card:nth-child(7) { animation-delay: 0.7s; }
+        .book-card:nth-child(8) { animation-delay: 0.8s; }
+        .book-card:nth-child(9) { animation-delay: 0.9s; }
+        .book-card:nth-child(10) { animation-delay: 1.0s; }
+        .book-card:nth-child(11) { animation-delay: 1.1s; }
+        .book-card:nth-child(12) { animation-delay: 1.2s; }
 
         .book-card::before {
             content: '';
@@ -275,7 +327,7 @@
             bottom: 0;
             background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.05) 50%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .book-card:hover::before {
@@ -283,12 +335,12 @@
         }
 
         .book-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-12px) scale(1.03);
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.8),
-                0 0 0 2px rgba(255, 215, 0, 0.3),
-                0 0 50px rgba(255, 215, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 25px 70px rgba(0, 0, 0, 0.9),
+                0 0 0 2px rgba(255, 215, 0, 0.4),
+                0 0 60px rgba(255, 215, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
         .book-image {
@@ -318,11 +370,11 @@
             border-radius: 0;
             background: rgba(0, 0, 0, 0.3);
             padding: 10px;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .book-card:hover .book-image img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .book-image-overlay {
@@ -336,7 +388,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
             backdrop-filter: blur(2px);
         }
 
@@ -348,6 +400,7 @@
             padding: 1.5rem;
             background: linear-gradient(145deg, #1f1f1f, #2f2f2f);
             border-radius: 0 0 20px 20px;
+            transition: background 0.3s ease;
         }
 
         .book-title {
@@ -359,12 +412,13 @@
             height: 2.8em;
             overflow: hidden;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .book-card:hover .book-title {
             color: #FFED4E;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transform: translateY(-2px);
         }
 
         .book-description {
@@ -377,6 +431,11 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            transition: color 0.3s ease;
+        }
+
+        .book-card:hover .book-description {
+            color: #d4d4d4;
         }
 
         .book-price {
@@ -413,16 +472,16 @@
             font-size: 0.75rem;
             font-weight: 600;
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
         }
 
         .book-card:hover .download-badge {
             opacity: 1;
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
         }
 
-        /* Language Selection Modal - FIXED POSITIONING */
+        /* Language Selection Modal - Enhanced smooth animations */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -437,7 +496,7 @@
             z-index: 10000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             padding: 20px;
         }
 
@@ -458,7 +517,7 @@
                 0 0 0 1px rgba(255, 215, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
             transform: scale(0.8) translateY(-50px);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(20px);
@@ -516,7 +575,7 @@
             font-size: 1.8rem;
             color: #FFD700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             line-height: 1;
             display: flex;
             align-items: center;
@@ -545,7 +604,7 @@
             border: 2px solid rgba(255, 215, 0, 0.2);
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             background: linear-gradient(145deg, rgba(26, 26, 26, 0.8), rgba(42, 42, 42, 0.6));
             text-decoration: none;
             color: inherit;
@@ -572,8 +631,8 @@
         .language-option:hover {
             border-color: #FFD700;
             background: linear-gradient(145deg, rgba(42, 42, 42, 0.9), rgba(52, 52, 52, 0.7));
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.25);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
         }
 
         .language-option:active {
@@ -614,12 +673,12 @@
         .arrow-icon {
             font-size: 1.5rem;
             color: #666;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             margin-left: 1rem;
         }
 
         .language-option:hover .arrow-icon {
-            transform: translateX(10px) scale(1.3);
+            transform: translateX(15px) scale(1.4);
             color: #FFD700;
             text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
@@ -656,7 +715,7 @@
             box-shadow: 0 10px 40px rgba(40, 167, 69, 0.4);
             z-index: 10002;
             transform: translateX(450px);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
         }
@@ -678,33 +737,6 @@
 
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .books-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            .header-stats {
-                gap: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 2.5rem 1rem;
-            }
-            
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .header-stats {
-                gap: 2rem;
-            }
-            
-            .stat-number {
-                font-size: 1.8rem;
-            }
-            
             .books-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: 1.2rem;
@@ -742,6 +774,37 @@
                 font-size: 1.5rem;
                 top: 15px;
                 right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 2.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .library-icon {
+                font-size: 2.8rem;
+            }
+            
+            .header-stats {
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .book-image {
+                height: 200px;
             }
         }
 
@@ -820,27 +883,87 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Custom Scrollbar */
+        /* Enhanced Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
             background: #1a1a1a;
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(45deg, #FFD700, #FFA500);
-            border-radius: 4px;
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+            transition: all 0.3s ease;
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(45deg, #FFED4E, #FFD700);
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #FFD700 #1a1a1a;
         }
 
         /* Prevent body scroll when modal is open */
         body.modal-open {
             overflow: hidden;
+        }
+
+        /* Enhanced scroll behavior */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 2rem;
+        }
+
+        /* Smooth transitions for all interactive elements */
+        a, button, .book-card, .language-option, .stat-item {
+            transition-property: transform, box-shadow, background, color, border-color;
+            transition-duration: 0.3s;
+            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Parallax effect for header background */
+        @media (prefers-reduced-motion: no-preference) {
+            .header {
+                background-attachment: fixed;
+            }
+            
+            .header::before {
+                will-change: transform;
+            }
+        }
+
+        /* Intersection Observer animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced focus states for accessibility */
+        .book-card:focus,
+        .language-option:focus,
+        .close-modal:focus {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+        }
+
+        /* Smooth color transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease;
         }
     </style>
 </head>
@@ -852,9 +975,9 @@
             <div class="floating-book">📓</div>
             <div class="floating-book">📕</div>
         </div>
-        
+
         <div class="header-content">
-            <div class="library-icon"></div>
+            <div class="library-icon">📚</div>
             <h1>OpenBook Library</h1>
             <p class="header-subtitle">Koleksi Buku Digital Mindset & Pengembangan Diri</p>
             <p class="header-description">
@@ -862,18 +985,19 @@
                 ~Kalimasada
             </p>
             
+            <!-- Stats Section -->
             <div class="header-stats">
                 <div class="stat-item">
                     <span class="stat-number" id="bookCount">12</span>
-                    <span class="stat-label">Buku Tersedia</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label">Kategori</span>
+                    <div class="stat-label">Buku Tersedia</div>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">100%</span>
-                    <span class="stat-label">Gratis</span>
+                    <div class="stat-label">Gratis</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2</span>
+                    <div class="stat-label">Bahasa</div>
                 </div>
             </div>
         </div>
@@ -886,7 +1010,7 @@
     </div>
 
     <footer class="footer">
-        <p> Made with passion by Alambana code</p>
+        <p>Made with passion by Alambana code</p>
     </footer>
 
     <!-- Language Selection Modal -->
@@ -1118,6 +1242,72 @@
         // Variable untuk menyimpan buku yang dipilih
         let selectedBook = null;
 
+        // Smooth scroll enhancement
+        function initSmoothScroll() {
+            // Add smooth scrolling to all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Intersection Observer for animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe book cards for staggered animations
+            document.querySelectorAll('.book-card').forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+        }
+
+        // Enhanced scroll performance
+        function optimizeScrollPerformance() {
+            let ticking = false;
+            
+            function updateScrollEffects() {
+                const scrolled = window.pageYOffset;
+                const headerBefore = document.querySelector('.header::before');
+                
+                // Parallax effect for header
+                if (headerBefore) {
+                    const speed = scrolled * 0.5;
+                    headerBefore.style.transform = `translateY(${speed}px)`;
+                }
+                
+                ticking = false;
+            }
+            
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateScrollEffects);
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick, { passive: true });
+        }
+
         // Fungsi untuk generate PDF content
         function generatePDFContent(book) {
             return `%PDF-1.4
@@ -1146,7 +1336,7 @@ BT
 0 -30 Td
 (Kategori: ${book.category}) Tj
 0 -30 Td
-(Download dari Alambana Library) Tj
+(Download dari OpenBook Library) Tj
 ET
 endstream
 endobj
@@ -1157,35 +1347,17 @@ endobj
 
 xref
 0 6
-0000000000 65535 f 
-0000000015 00000 n 
-0000000068 00000 n 
-0000000125 00000 n 
-0000000259 00000 n 
-0000000509 00000 n 
+0000000000 65535 f
+0000000015 00000 n
+0000000068 00000 n
+0000000125 00000 n
+0000000259 00000 n
+0000000509 00000 n
 trailer
 << /Size 6 /Root 1 0 R >>
 startxref
 578
 %%EOF`;
-        }
-
-        // Fungsi untuk download PDF
-        function downloadPDF(book) {
-            const pdfContent = generatePDFContent(book);
-            const blob = new Blob([pdfContent], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${book.title.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            // Tampilkan pesan download
-            showDownloadMessage(book.title);
         }
 
         // Fungsi untuk menampilkan pesan download
@@ -1218,10 +1390,10 @@ startxref
         // Fungsi untuk membuat card buku
         function createBookCard(book) {
             return `
-                <div class="book-card" onclick="openLanguageModal(${book.id})">
+                <div class="book-card animate-on-scroll" onclick="openLanguageModal(${book.id})" tabindex="0">
                     <div class="book-image" style="background: ${book.coverColor}">
                         ${book.imageUrl ? `<img src="${book.imageUrl}" alt="${book.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
-                        <div class="book-image-overlay" style="display: ${book.imageUrl ? 'flex' : 'flex'};">
+                        <div class="book-image-overlay" style="display: ${book.imageUrl ? 'none' : 'flex'};">
                             <span style="color: white; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); text-align: center; line-height: 1.2;">
                                 ${book.coverText}
                             </span>
@@ -1251,11 +1423,26 @@ startxref
             const booksHTML = booksData.map(book => createBookCard(book)).join('');
             booksGrid.innerHTML = booksHTML;
             
+            // Initialize scroll animations after rendering
+            setTimeout(() => {
+                initScrollAnimations();
+            }, 100);
+            
             // Update book count in header
             const bookCountElement = document.getElementById('bookCount');
             if (bookCountElement) {
                 bookCountElement.textContent = booksData.length;
             }
+
+            // Add keyboard support for book cards
+            document.querySelectorAll('.book-card').forEach(card => {
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
+            });
         }
 
         // Fungsi untuk membuka modal bahasa
@@ -1267,7 +1454,7 @@ startxref
                 // Prevent body scroll
                 document.body.classList.add('modal-open');
                 
-                // Show modal
+                // Show modal with smooth animation
                 modal.classList.add('show');
                 
                 // Update modal title dengan nama buku
@@ -1323,6 +1510,15 @@ startxref
                     openBook(selectedBook.pdfUrl.id, selectedBook.title, 'Indonesia');
                     closeLanguageModal();
                 });
+
+                // Add keyboard support
+                newIndonesianOption.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openBook(selectedBook.pdfUrl.id, selectedBook.title, 'Indonesia');
+                        closeLanguageModal();
+                    }
+                });
             }
 
             if (!selectedBook.pdfUrl.en) {
@@ -1338,70 +1534,260 @@ startxref
                     openBook(selectedBook.pdfUrl.en, selectedBook.title, 'English');
                     closeLanguageModal();
                 });
+
+                // Add keyboard support
+                newEnglishOption.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openBook(selectedBook.pdfUrl.en, selectedBook.title, 'English');
+                        closeLanguageModal();
+                    }
+                });
             }
         }
 
         // Fungsi untuk membuka buku dengan bahasa yang dipilih
         function openBook(pdfUrl, bookTitle, language) {
-            // Langsung buka link di tab baru
+            // Langsung buka link di tab baru dengan smooth animation
             if (pdfUrl && !pdfUrl.includes('example')) {
+                // Add loading state
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'download-message';
+                loadingMessage.innerHTML = `
+                    <div class="loading" style="display: inline-block; margin-right: 10px;"></div>
+                    <strong>Membuka ${bookTitle}...</strong>
+                `;
+                document.body.appendChild(loadingMessage);
+                
+                setTimeout(() => {
+                    loadingMessage.classList.add('show');
+                }, 100);
+
+                // Open the book
                 const newWindow = window.open(pdfUrl, '_blank');
+                
+                // Remove loading message
+                setTimeout(() => {
+                    loadingMessage.classList.remove('show');
+                    setTimeout(() => {
+                        if (loadingMessage.parentNode) {
+                            document.body.removeChild(loadingMessage);
+                        }
+                    }, 300);
+                    
+                    // Show success message
+                    showDownloadMessage(`${bookTitle} (${language})`);
+                }, 1000);
                 
                 // Fallback jika gagal membuka di tab baru
                 if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
                     // Redirect di window yang sama
-                    window.location.href = pdfUrl;
+                    setTimeout(() => {
+                        window.location.href = pdfUrl;
+                    }, 500);
                 }
-                
-                // Tampilkan pesan sukses
-                showDownloadMessage(`${bookTitle} (${language})`);
             } else {
                 // Jika tidak ada URL atau masih example, tampilkan pesan
-                alert(`Maaf, versi ${language} untuk "${bookTitle}" belum tersedia.`);
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'download-message';
+                errorMessage.style.background = 'linear-gradient(45deg, #dc3545, #c82333)';
+                errorMessage.innerHTML = `
+                    <strong>⚠️ Belum Tersedia</strong><br>
+                    ${bookTitle} versi ${language} sedang dalam proses
+                `;
+                
+                document.body.appendChild(errorMessage);
+                
+                setTimeout(() => {
+                    errorMessage.classList.add('show');
+                }, 100);
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                    setTimeout(() => {
+                        if (errorMessage.parentNode) {
+                            document.body.removeChild(errorMessage);
+                        }
+                    }, 300);
+                }, 3000);
             }
         }
 
-        // Event listener untuk menutup modal ketika klik di luar
-        document.addEventListener('click', (e) => {
-            const modal = document.getElementById('languageModal');
-            const modalContent = document.querySelector('.language-modal');
-            
-            if (e.target === modal && !modalContent.contains(e.target)) {
-                closeLanguageModal();
-            }
-        });
+        // Enhanced event listeners
+        function initEventListeners() {
+            // Event listener untuk menutup modal ketika klik di luar
+            document.addEventListener('click', (e) => {
+                const modal = document.getElementById('languageModal');
+                const modalContent = document.querySelector('.language-modal');
+                
+                if (e.target === modal && !modalContent.contains(e.target)) {
+                    closeLanguageModal();
+                }
+            });
 
-        // Event listener untuk tombol ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeLanguageModal();
-            }
-        });
+            // Event listener untuk tombol ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeLanguageModal();
+                }
+            });
 
-        // Prevent modal close when clicking inside modal content
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.language-modal')) {
-                e.stopPropagation();
-            }
-        });
+            // Prevent modal close when clicking inside modal content
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.language-modal')) {
+                    e.stopPropagation();
+                }
+            });
 
-        // Initialize
+            // Enhanced scroll behavior
+            let isScrolling;
+            window.addEventListener('scroll', () => {
+                // Clear timeout if it exists
+                window.clearTimeout(isScrolling);
+                
+                // Add scrolling class to body
+                document.body.classList.add('scrolling');
+                
+                // Remove scrolling class after scrolling stops
+                isScrolling = setTimeout(() => {
+                    document.body.classList.remove('scrolling');
+                }, 150);
+            }, { passive: true });
+
+            // Smooth scroll to top button
+            const scrollToTop = document.createElement('button');
+            scrollToTop.innerHTML = '↑';
+            scrollToTop.className = 'scroll-to-top';
+            scrollToTop.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                border: none;
+                border-radius: 50%;
+                background: linear-gradient(45deg, #FFD700, #FFA500);
+                color: #000;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 1000;
+                opacity: 0;
+                transform: scale(0);
+                transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            `;
+
+            document.body.appendChild(scrollToTop);
+
+            // Show/hide scroll to top button
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTop.style.opacity = '1';
+                    scrollToTop.style.transform = 'scale(1)';
+                } else {
+                    scrollToTop.style.opacity = '0';
+                    scrollToTop.style.transform = 'scale(0)';
+                }
+            }, { passive: true });
+
+            // Scroll to top functionality
+            scrollToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Hover effect for scroll to top button
+            scrollToTop.addEventListener('mouseenter', () => {
+                scrollToTop.style.transform += ' scale(1.1)';
+                scrollToTop.style.boxShadow = '0 6px 20px rgba(255, 215, 0, 0.6)';
+            });
+
+            scrollToTop.addEventListener('mouseleave', () => {
+                scrollToTop.style.transform = window.pageYOffset > 300 ? 'scale(1)' : 'scale(0)';
+                scrollToTop.style.boxShadow = '0 4px 15px rgba(255, 215, 0, 0.4)';
+            });
+        }
+
+        // Performance optimization
+        function optimizePerformance() {
+            // Lazy load images
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+
+            // Preload critical resources
+            const preloadLinks = [
+                'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'
+            ];
+
+            preloadLinks.forEach(href => {
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'style';
+                link.href = href;
+                document.head.appendChild(link);
+            });
+        }
+
+        // Initialize everything
         document.addEventListener('DOMContentLoaded', function() {
-            renderBooks();
-            
-            // Add smooth scroll animation
-            document.documentElement.style.scrollBehavior = 'smooth';
-            
-            // Add page load animation
+            // Add initial page load animation
             document.body.style.opacity = '0';
             document.body.style.transform = 'translateY(20px)';
             
             setTimeout(() => {
-                document.body.style.transition = 'all 0.6s ease';
+                document.body.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                 document.body.style.opacity = '1';
                 document.body.style.transform = 'translateY(0)';
             }, 100);
+
+            // Initialize all functions
+            renderBooks();
+            initSmoothScroll();
+            initEventListeners();
+            optimizeScrollPerformance();
+            optimizePerformance();
+            
+            // Add smooth scroll animation
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            console.log('OpenBook Library initialized with enhanced smooth scrolling! 🚀');
         });
+
+        // Handle page visibility for performance
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Pause animations when page is not visible
+                document.body.style.animationPlayState = 'paused';
+            } else {
+                // Resume animations when page becomes visible
+                document.body.style.animationPlayState = 'running';
+            }
+        });
+
+        // Additional smooth scroll enhancements
+        window.addEventListener('beforeunload', () => {
+            // Smooth page exit
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(-20px)';
+        });
+
     </script>
 </body>
 </html>
