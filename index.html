@@ -5,27 +5,28 @@
     <meta name="google-site-verification" content="C95cPqPR8IAz7zIOEMVS7OZ8xYFx5ql62ET1zfetqRk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenBook Library | Toko & Perpustakaan Digital</title>
+    <title>OpenBook Library | Toko & Perpustakaan Digital Modern</title>
     <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary-blue: #0056b3;
-            --primary-blue-hover: #004085;
-            --accent-blue: #2563eb;
-            --light-blue: #eff6ff;
+            --primary-blue-dark: #003d80;
+            --primary-blue-light: #e6f0fa;
+            --accent-red: #d93025;
             --bg-main: #f8fafc;
             --bg-card: #ffffff;
-            --text-main: #0f172a;
+            --text-main: #1e293b;
             --text-muted: #64748b;
             --border-light: #e2e8f0;
             --border-hover: #cbd5e1;
-            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-            --radius-md: 8px;
-            --radius-lg: 12px;
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 12px 28px -6px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
             --radius-full: 9999px;
         }
 
@@ -37,11 +38,11 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 100px;
+            scroll-padding-top: 120px;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
             line-height: 1.5;
@@ -51,22 +52,30 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Top Bar Announcement */
+        .top-notice-bar {
+            background-color: var(--primary-blue-dark);
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .top-notice-bar i {
+            margin-right: 0.4rem;
+            color: #60a5fa;
+        }
+
+        /* Navbar Sticky Section */
         .navbar-sticky-wrapper {
             position: sticky;
             top: 0;
             z-index: 1000;
             background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
             border-bottom: 1px solid var(--border-light);
-        }
-
-        .top-notice-bar {
-            background-color: var(--primary-blue);
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-align: center;
-            padding: 0.4rem 1rem;
-            font-weight: 500;
         }
 
         .navbar-main {
@@ -86,12 +95,12 @@
             text-decoration: none;
             color: var(--primary-blue);
             font-weight: 800;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             letter-spacing: -0.5px;
         }
 
         .brand-logo i {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         }
 
         .brand-logo span {
@@ -99,6 +108,7 @@
             font-weight: 400;
         }
 
+        /* Search Bar Ala Gramedia */
         .search-container {
             flex: 1;
             max-width: 650px;
@@ -118,7 +128,7 @@
         .search-input-group:focus-within {
             background-color: #ffffff;
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.15);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.12);
         }
 
         .search-input-group i.search-icon {
@@ -131,8 +141,8 @@
             width: 100%;
             border: none;
             background: transparent;
-            padding: 0.5rem 0;
-            font-size: 0.95rem;
+            padding: 0.55rem 0;
+            font-size: 0.9rem;
             color: var(--text-main);
             outline: none;
             font-family: inherit;
@@ -190,7 +200,7 @@
         }
 
         .nav-icon-btn:hover {
-            background-color: var(--light-blue);
+            background-color: var(--primary-blue-light);
             color: var(--primary-blue);
         }
 
@@ -198,6 +208,7 @@
             color: var(--primary-blue);
         }
 
+        /* Sub Navigation Bar */
         .sub-navbar {
             border-top: 1px solid #f1f5f9;
             background-color: #ffffff;
@@ -208,7 +219,7 @@
             margin: 0 auto;
             padding: 0.5rem 1.5rem;
             display: flex;
-            gap: 1.5rem;
+            gap: 1.8rem;
             overflow-x: auto;
             white-space: nowrap;
             scrollbar-width: none;
@@ -221,7 +232,7 @@
         .sub-nav-link {
             text-decoration: none;
             color: var(--text-muted);
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             font-weight: 500;
             padding: 0.2rem 0;
             transition: color 0.2s;
@@ -233,8 +244,9 @@
             border-bottom-color: var(--primary-blue);
         }
 
+        /* Hero Banner Gramedia Style */
         .hero-banner {
-            background: linear-gradient(135deg, #004085 0%, #0056b3 50%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #003d80 0%, #0056b3 60%, #1d4ed8 100%);
             color: #ffffff;
             padding: 3rem 1.5rem;
             position: relative;
@@ -250,33 +262,35 @@
         }
 
         .hero-content {
-            max-width: 680px;
+            max-width: 700px;
         }
 
         .hero-tag {
-            display: inline-block;
-            background-color: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background-color: rgba(255, 255, 255, 0.18);
             color: #ffffff;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            padding: 0.3rem 0.8rem;
+            padding: 0.35rem 0.85rem;
             border-radius: var(--radius-full);
             margin-bottom: 1rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
         }
 
         .hero-title {
             font-size: 2.25rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.25;
             margin-bottom: 0.8rem;
             letter-spacing: -0.5px;
         }
 
         .hero-subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
+            font-size: 0.98rem;
+            opacity: 0.92;
             margin-bottom: 1.5rem;
             font-weight: 400;
             line-height: 1.6;
@@ -284,32 +298,32 @@
 
         .header-stats {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
             padding: 0.8rem 1.2rem;
             border-radius: var(--radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             min-width: 130px;
         }
 
         .stat-number {
             display: block;
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.35rem;
+            font-weight: 800;
             color: #ffffff;
         }
 
         .stat-label {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.82);
             font-weight: 400;
         }
 
+        /* Main Catalog Layout */
         .main-container {
             max-width: 1280px;
             margin: 0 auto;
@@ -318,10 +332,11 @@
             width: 100%;
         }
 
+        /* Category Filter Section */
         .filter-section {
             margin-bottom: 2rem;
             background: #ffffff;
-            padding: 1.2rem;
+            padding: 1.2rem 1.5rem;
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow-subtle);
@@ -372,7 +387,7 @@
         .category-btn:hover {
             border-color: var(--primary-blue);
             color: var(--primary-blue);
-            background-color: var(--light-blue);
+            background-color: var(--primary-blue-light);
         }
 
         .category-btn.active {
@@ -398,7 +413,7 @@
         }
 
         .section-heading {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 1.2rem;
@@ -407,9 +422,10 @@
             justify-content: space-between;
         }
 
+        /* Book Cards Grid */
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             gap: 1.5rem;
             width: 100%;
         }
@@ -435,7 +451,7 @@
 
         .book-cover-wrapper {
             width: 100%;
-            padding-top: 135%; /* Book aspect ratio 1:1.35 */
+            padding-top: 135%;
             position: relative;
             background-color: #f8fafc;
             overflow: hidden;
@@ -461,15 +477,15 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: rgba(255, 255, 255, 0.92);
+            background-color: rgba(255, 255, 255, 0.95);
             color: var(--primary-blue);
             padding: 3px 8px;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
             backdrop-filter: blur(4px);
             z-index: 2;
         }
@@ -481,10 +497,10 @@
             background-color: #16a34a;
             color: #ffffff;
             padding: 3px 8px;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-size: 0.68rem;
             font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
             z-index: 2;
         }
 
@@ -498,7 +514,7 @@
         .book-author {
             font-size: 0.75rem;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 0.2rem;
             text-transform: uppercase;
             letter-spacing: 0.3px;
@@ -524,7 +540,7 @@
         .book-rating {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.2rem;
             font-size: 0.75rem;
             color: #f59e0b;
             margin-bottom: 0.5rem;
@@ -574,7 +590,7 @@
         }
 
         .btn-download-trigger {
-            background-color: var(--light-blue);
+            background-color: var(--primary-blue-light);
             color: var(--primary-blue);
             border: none;
             padding: 0.4rem 0.8rem;
@@ -609,6 +625,7 @@
             margin-bottom: 1rem;
         }
 
+        /* Modal Language Download Styling */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -634,7 +651,7 @@
 
         .language-modal {
             background: #ffffff;
-            border-radius: 16px;
+            border-radius: var(--radius-lg);
             padding: 2rem;
             max-width: 480px;
             width: 100%;
@@ -710,7 +727,7 @@
 
         .language-option:hover {
             border-color: var(--primary-blue);
-            background-color: var(--light-blue);
+            background-color: var(--primary-blue-light);
             transform: translateY(-1px);
         }
 
@@ -759,7 +776,7 @@
             border-color: var(--border-light);
         }
 
-        /* Notifications */
+        /* Toast Notifications */
         .download-message {
             position: fixed;
             bottom: 24px;
@@ -801,6 +818,7 @@
             justify-content: center;
             gap: 1.5rem;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
@@ -878,8 +896,7 @@
 
     <header class="navbar-sticky-wrapper">
         <div class="top-notice-bar">
-            <i class="fa-solid fa-truck-fast">
-            </i> Gratis Unduh PDF & E-Book Pilihan Hari Ini | OpenBook Library
+            <i class="fa-solid fa-truck-fast"></i> Gratis Unduh PDF & E-Book Pilihan Hari Ini | OpenBook Library
         </div>
         <div class="navbar-main">
             <a href="#" class="brand-logo">
@@ -887,16 +904,16 @@
                 OpenBook<span>Library</span>
             </a>
 
-            <!-- Search bar -->
+            <!-- Search Bar Gramedia Style -->
             <div class="search-container">
                 <div class="search-input-group">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="searchInput" placeholder="Cari judul buku, penulis, atau topik..." autocomplete="off">
-                    <button id="clearSearch" title="Bersihkan Pencarian"><i class="fa-solid fa-xmark"></i></button>
+                    <input type="text" id="searchInput" placeholder="Cari judul buku, penulis, atau topik..." autocomplete="off" oninput="filterBooks()">
+                    <button id="clearSearch" title="Bersihkan Pencarian" onclick="clearSearch()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
 
-            <!-- Navbar Nav Actions -->
+            <!-- Navbar Quick Action Icons -->
             <div class="nav-actions">
                 <a href="#katalog" class="nav-icon-btn">
                     <i class="fa-solid fa-border-all"></i>
@@ -913,7 +930,7 @@
             </div>
         </div>
 
-        <!-- Sub-navigation links -->
+        <!-- Sub Navigation Links -->
         <nav class="sub-navbar">
             <div class="sub-nav-container">
                 <a href="#" class="sub-nav-link active">Beranda</a>
@@ -933,8 +950,8 @@
                 <p class="hero-subtitle">Temukan buku favorit Anda, pelajari wawasan baru, dan unduh dokumen pilihan dalam berbagai bahasa dengan format berkualitas tinggi.</p>
                 <div class="header-stats">
                     <div class="stat-item">
-                        <span class="stat-number">1,200+</span>
-                        <span class="stat-label">Buku Digital</span>
+                        <span class="stat-number" id="totalBooksCount">0</span>
+                        <span class="stat-label">Total Buku</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">100%</span>
@@ -950,7 +967,7 @@
     </section>
 
     <main class="main-container" id="katalog">
-        <!-- Category Filter Pills -->
+        <!-- Filter Section -->
         <section class="filter-section">
             <div class="filter-header">
                 <div class="filter-title">
@@ -959,13 +976,13 @@
                 </div>
             </div>
             <div class="category-buttons" id="categoryButtons">
-                <!-- Javascript will generate buttons dynamically -->
+                <!-- Javascript will generate category buttons dynamically -->
             </div>
         </section>
 
         <!-- Dynamic Books Section Header -->
         <div class="section-heading">
-            <span id="sectionTitle">Semua Buku</span>
+            <span id="sectionTitle">Semua Buku Populer</span>
         </div>
 
         <!-- Books Grid Container -->
@@ -1019,7 +1036,7 @@
     </footer>
 
     <script>
-        // Array Data Buku Utama (Seluruh logika asli dipertahankan)
+        // Array Data Buku Utama (Seluruh data, link, dan gambar dipertahankan 100%)
         const books = [
             {
                 id: 1,
@@ -1218,7 +1235,7 @@
             }
         ];
 
-        // Global State & Elements
+        // Global State & UI References
         let currentCategory = 'all';
         let currentSearchQuery = '';
 
@@ -1227,6 +1244,7 @@
         const searchInput = document.getElementById('searchInput');
         const clearSearchBtn = document.getElementById('clearSearch');
         const sectionTitle = document.getElementById('sectionTitle');
+        const totalBooksCount = document.getElementById('totalBooksCount');
         const languageModal = document.getElementById('languageModal');
         const closeModalBtn = document.getElementById('closeModal');
         const modalBookTitle = document.getElementById('modalBookTitle');
@@ -1234,14 +1252,17 @@
         const enDownloadLink = document.getElementById('enDownloadLink');
         const downloadMessage = document.getElementById('downloadMessage');
 
-        // Initializer Logic
+        // Initializer
         function initApp() {
+            if (totalBooksCount) {
+                totalBooksCount.textContent = books.length;
+            }
             renderCategoryButtons();
             renderBooks();
             setupEventListeners();
         }
 
-        // Render Category Pills with Dynamic Counts
+        // Render Category Filter Buttons
         function renderCategoryButtons() {
             const categories = ['all', ...new Set(books.map(b => b.category))];
             
@@ -1259,7 +1280,7 @@
             }).join('');
         }
 
-        // Filter and Render Books Grid
+        // Render Books Grid
         function renderBooks() {
             let filteredBooks = books.filter(book => {
                 const matchesCategory = currentCategory === 'all' || book.category === currentCategory;
@@ -1269,10 +1290,10 @@
                 return matchesCategory && matchesSearch;
             });
 
-            // Update title based on selection
-            if(currentSearchQuery) {
+            // Dynamic section title update
+            if (currentSearchQuery) {
                 sectionTitle.textContent = `Hasil Pencarian: "${currentSearchQuery}" (${filteredBooks.length})`;
-            } else if(currentCategory !== 'all') {
+            } else if (currentCategory !== 'all') {
                 sectionTitle.textContent = `Kategori: ${currentCategory} (${filteredBooks.length})`;
             } else {
                 sectionTitle.textContent = "Semua Buku Populer";
@@ -1325,9 +1346,23 @@
             `).join('');
         }
 
-        // Event Listener Bindings
+        // Global Event Functions for Search Compatibility
+        function filterBooks() {
+            currentSearchQuery = searchInput.value.trim();
+            clearSearchBtn.classList.toggle('show', currentSearchQuery.length > 0);
+            renderBooks();
+        }
+
+        function clearSearch() {
+            searchInput.value = '';
+            currentSearchQuery = '';
+            clearSearchBtn.classList.remove('show');
+            renderBooks();
+            searchInput.focus();
+        }
+
+        // Event Listeners Setup
         function setupEventListeners() {
-            // Category Buttons Click
             categoryButtons.addEventListener('click', (e) => {
                 const btn = e.target.closest('.category-btn');
                 if (!btn) return;
@@ -1338,41 +1373,22 @@
                 renderBooks();
             });
 
-            // Live Search
-            searchInput.addEventListener('input', (e) => {
-                currentSearchQuery = e.target.value.trim();
-                clearSearchBtn.classList.toggle('show', currentSearchQuery.length > 0);
-                renderBooks();
-            });
-
-            // Clear Search
-            clearSearchBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                currentSearchQuery = '';
-                clearSearchBtn.classList.remove('show');
-                renderBooks();
-                searchInput.focus();
-            });
-
-            // Modal Close Controls
             closeModalBtn.addEventListener('click', closeLanguageModal);
             languageModal.addEventListener('click', (e) => {
                 if (e.target === languageModal) closeLanguageModal();
             });
 
-            // Download Trigger Toast Notification
             idDownloadLink.addEventListener('click', handleDownloadClick);
             enDownloadLink.addEventListener('click', handleDownloadClick);
         }
 
-        // Open Language Selection Modal
+        // Language Download Modal
         function openLanguageModal(bookId) {
             const book = books.find(b => b.id === bookId);
             if (!book) return;
 
             modalBookTitle.textContent = book.title;
 
-            // Configure Indonesian link
             if (book.idDriveLink) {
                 idDownloadLink.href = book.idDriveLink;
                 idDownloadLink.classList.remove('disabled');
@@ -1381,7 +1397,6 @@
                 idDownloadLink.classList.add('disabled');
             }
 
-            // Configure English link
             if (book.enDriveLink) {
                 enDownloadLink.href = book.enDriveLink;
                 enDownloadLink.classList.remove('disabled');
@@ -1394,13 +1409,11 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Close Language Modal
         function closeLanguageModal() {
             languageModal.classList.remove('show');
             document.body.style.overflow = '';
         }
 
-        // Handle Toast Notification
         function handleDownloadClick(e) {
             if (e.currentTarget.classList.contains('disabled')) {
                 e.preventDefault();
@@ -1418,7 +1431,7 @@
             }, 3500);
         }
 
-        // Start App on Window Load
+        // Initialize Application
         window.onload = initApp;
     </script>
 </body>
